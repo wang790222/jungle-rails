@@ -4,6 +4,11 @@
 
 <div class="row">
   <div class="col-sm-4 col-sm-offset-1">
+
+    <% flash.each do |message_type, message| %>
+      <div class="alert alert-<%= message_type %>"><%= message %></div>
+    <% end %>
+
     <%= form_for(:session, url: login_path) do |form| %>
       <div class="form-group">
         <%= form.label :email %>
@@ -12,7 +17,7 @@
 
       <div class="form-group">
         <%= form.label :password %>
-        <%= form.text_field :password, class: 'form-control' %>
+        <%= form.password_field :password, class: 'form-control' %>
       </div>
 
       <%= form.submit "Login", class: "btn btn-primary" %>
