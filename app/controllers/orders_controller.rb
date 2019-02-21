@@ -78,7 +78,7 @@ class OrdersController < ApplicationController
     end
     mail_content += "total: #{temp_total / 100.0}"
 
-    from = Email.new(email: 'no-reply-jungle_proj@mail.com')
+    from = Email.new(email: ENV['VALID_EMAIL_ACCOUNT'])
     to = Email.new(email: user_email)
     subject = "Thanks for you order - ##{order_id}!"
     content = Content.new(type: 'text/html', value: mail_content)
