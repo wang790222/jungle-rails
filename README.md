@@ -26,3 +26,8 @@ More information in their docs: <https://stripe.com/docs/testing#cards>
 * Rails 4.2 [Rails Guide](http://guides.rubyonrails.org/v4.2/)
 * PostgreSQL 9.x
 * Stripe
+
+## Sendgrid
+
+Goto https://app.sendgrid.com/ sign up an account
+Update SENDGRID_API_KEY in .env by your key
