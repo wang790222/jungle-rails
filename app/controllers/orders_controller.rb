@@ -2,6 +2,8 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    sql = "select line_items.*, products.name, products.description, products.image from line_items inner join products on line_items.product_id = products.id where line_items.order_id = #{params[:id]};"
+    @order_result = ActiveRecord::Base.connection.execute(sql)
   end
 
   def create
@@ -30,7 +32,7 @@ class OrdersController < ApplicationController
     Stripe::Charge.create(
       source:      params[:stripeToken],
       amount:      cart_subtotal_cents,
-      description: "Khurram Virani's Jungle Order",
+      description: "Yu-Ning's Jungle Order",
       currency:    'cad'
     )
   end
@@ -55,5 +57,4 @@ class OrdersController < ApplicationController
     order.save!
     order
   end
-
 end
