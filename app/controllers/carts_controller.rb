@@ -1,6 +1,7 @@
 class CartsController < ApplicationController
 
   def show
+    @user_email = JSON.parse(cookies[:user_email])['email']
   end
 
   def add_item
