@@ -1,4 +1,8 @@
+include HttpBasicAuthenticateHelper
+
 class Admin::CategoriesController < ApplicationController
+
+  HttpBasicAuthenticateHelper.authenticate(self)
 
   def index
     @categories = Category.order(id: :desc).all

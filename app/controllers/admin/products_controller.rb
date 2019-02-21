@@ -1,4 +1,8 @@
+include HttpBasicAuthenticateHelper
+
 class Admin::ProductsController < ApplicationController
+
+  HttpBasicAuthenticateHelper.authenticate(self)
 
   def index
     @products = Product.order(id: :desc).all
