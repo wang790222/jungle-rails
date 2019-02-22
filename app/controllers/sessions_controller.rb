@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
 
       cookies[:user_email] = {
-        value: JSON.generate({params[:session][:email].downcase}),
+        value: JSON.generate({email: params[:session][:email].downcase}),
         expires: 10.days.from_now
       }
       cookies[:user_email]

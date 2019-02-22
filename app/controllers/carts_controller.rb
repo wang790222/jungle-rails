@@ -1,7 +1,13 @@
 class CartsController < ApplicationController
 
   def show
-    @user_email = JSON.parse(cookies[:user_email])['email']
+    if cookies[:user_email]
+      @user_email = JSON.parse(cookies[:user_email])['email']
+    end
+
+    if enhanced_cart.length() == 0
+      @nothing_in_cart = true
+    end
   end
 
   def add_item
