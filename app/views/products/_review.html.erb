@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Font Awesome Icon Library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#body-rating-style {
+  font-family: Arial;
+  margin: 0 auto; /* Center website */
+  max-width: 800px; /* Max width */
+  padding: 20px;
+}
+
+.heading {
+  font-size: 25px;
+  margin-right: 25px;
+}
+
+.fa {
+  font-size: 25px;
+}
+
+.checked {
+  color: #f2b01e;
+}
+
+/* Three column layout */
+.side {
+  float: left;
+  width: 15%;
+  margin-top:10px;
+}
+
+.middle {
+  margin-top:10px;
+  float: left;
+  width: 70%;
+}
+
+/* Place text to the right */
+.right {
+  text-align: right;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The bar container */
+.bar-container {
+  width: 100%;
+  background-color: #f1f1f1;
+  text-align: center;
+  color: white;
+}
+
+/* Individual bars */
+.bar-5 {<%= @star_average_percentage[4] %>; height: 18px; background-color: #4CAF50;}
+.bar-4 {<%= @star_average_percentage[3] %>; height: 18px; background-color: #2196F3;}
+.bar-3 {<%= @star_average_percentage[2] %>; height: 18px; background-color: #00bcd4;}
+.bar-2 {<%= @star_average_percentage[1] %>; height: 18px; background-color: #ff9800;}
+.bar-1 {<%= @star_average_percentage[0] %>; height: 18px; background-color: #f44336;}
+
+/* Responsive layout - make the columns stack on top of each other instead of next to each other */
+@media (max-width: 300px) {
+  .side, .middle {
+    width: 100%;
+  }
+  .right {
+    display: none;
+  }
+}
+
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+fieldset, label { margin: 0; padding: 0; }
+body{ margin: 20px; }
+h1 { font-size: 1.5em; margin: 10px; }
+
+/****** Style Star Rating Widget *****/
+
+.rating {
+  border: none;
+  float: left;
+}
+
+.rating > input { display: none; }
+.rating > label:before {
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > .half:before {
+  content: "\f089";
+  position: absolute;
+}
+
+.rating > label {
+ float: right;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #f2b01e;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #f2b01e;  }
+
+input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid black;
+}
+</style>
+</head>
+
+<% if cookies[:user_email] != nil && !@has_reviewed %>
+  <%= form_for :review, :url => product_reviews_path(@product) do |f| %>
+    <%= f.hidden_field :product_id, value: @product.id %><br />
+    <h3>Give this product a review</h3>
+    <fieldset class="rating">
+      <%= f.radio_button :rating, 5, id: "star5", name: "rating" %><label class = "full" for="star5"></label>
+      <%= f.radio_button :rating, 4, id: "star4", name: "rating" %><label class = "full" for="star4"></label>
+      <%= f.radio_button :rating, 3, id: "star3", name: "rating" %><label class = "full" for="star3"></label>
+      <%= f.radio_button :rating, 2, id: "star2", name: "rating" %><label class = "full" for="star2"></label>
+      <%= f.radio_button :rating, 1, id: "star1", name: "rating" %><label class = "full" for="star1"></label>
+    </fieldset>
+    <br>
+    <br>
+    <%= f.text_area :description %><br />
+    <br>
+    <%= f.submit 'Submit', class: 'btn btn-lg btn-primary' %><br />
+    <br>
+  <% end %>
+<% end %>
+
+<hr style="border:3px solid #f1f1f1">
+<div id="rating-body-style">
+<span class="heading">User Rating</span>
+<% @star_average.round.times do |star| %>
+  <span class="fa fa-star checked"></span>
+<% end %>
+<% (5 - @star_average.round).times do |unchecked_star| %>
+  <span class="fa fa-star"></span>
+<% end %>
+
+<p><%= @star_average %> average based on <%= @reviews.count %> reviews.</p>
+
+<div class="row">
+  <div class="side">
+    <div>5 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-5"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div><%= @star_count[4] %></div>
+  </div>
+  <div class="side">
+    <div>4 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-4"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div><%= @star_count[3] %></div>
+  </div>
+  <div class="side">
+    <div>3 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-3"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div><%= @star_count[2] %></div>
+  </div>
+  <div class="side">
+    <div>2 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-2"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div><%= @star_count[1] %></div>
+  </div>
+  <div class="side">
+    <div>1 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-1"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div><%= @star_count[0] %></div>
+  </div>
+</div>
+</div>
+<br>
+
+<% if @reviews.count != 0 %>
+  <% @reviews.each do |review| %>
+    <div>
+      <div>
+        <p style='display:inline;'><b><%= review.user['email'] %></b></p>
+        <% if review.user['email'] == @user_email %>
+          <%= form_for :review, :url => product_remove_review_path(@product), :html => {:style => 'display:inline;'} do |f| %>
+            <%= f.hidden_field :id, value: review.id %>
+            <%= f.submit 'Delete', class: 'btn btn-primary', style: 'font-size:10px;' %>
+          <% end %>
+        <% end %>
+      </div>
+      <p><I>&nbsp;&nbsp;&nbsp;&nbsp;<%= review[:description] %></I></p>
+    </div>
+  <% end %>
+<% end %>
+</html>

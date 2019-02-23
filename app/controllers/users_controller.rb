@@ -6,6 +6,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      cookies[:user_email] = {
+        value: JSON.generate({email: user_params[:email]}),
+        expires: 10.days.from_now
+      }
+      cookies[:user_email]
       redirect_to :root
     else
       render 'new'

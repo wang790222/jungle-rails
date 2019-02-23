@@ -4,6 +4,15 @@ class SessionsController < ApplicationController
   end
 
   def create
+    check_login
+  end
+
+  def destroy
+    cookies.delete :user_email
+    redirect_to :root
+  end
+
+  def check_login
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
 
@@ -17,14 +26,6 @@ class SessionsController < ApplicationController
       flash.now[:danger] = 'Invalid email/password combination'
       render 'new'
     end
-  end
-
-  def destroy
-    cookies[:user_email] = {
-      value: JSON.generate({}),
-      expires: 10.days.from_now
-    }
-    cookies[:user_email]
   end
 
   private

@@ -25,12 +25,19 @@
             <% end %>
           </ul>
         </li>
-        <li>
-          <%= link_to 'Login', :login %>
-        </li>
-        <li>
-          <%= link_to 'Sign Up', :signup %>
-        </li>
+
+        <% if cookies[:user_email] == nil %>
+          <li>
+            <%= link_to 'Login', :login %>
+          </li>
+          <li>
+            <%= link_to 'Sign Up', :signup %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to 'Logout', :logout, method: :delete %>
+          </li>
+        <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">
        <li class="dropdown">
