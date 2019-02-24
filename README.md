@@ -13,14 +13,20 @@ A mini e-commerce application built with Rails 4.2 for purposes of teaching Rail
 6. Create .env file based on .env.example
 7. Sign up for a Stripe account
 8. Put Stripe (test) keys into appropriate .env vars
-9. Put Admin account&password into appropriate .env vars
-10. Run `bin/rails s -b 0.0.0.0` to start the server
+9. Put Sendgrid keys into appropriate .env vars
+10. Put Admin account&password into appropriate .env vars
+11. Run `bin/rails s -b 0.0.0.0` to start the server
 
 ## Stripe Testing
 
 Use Credit Card # 4111 1111 1111 1111 for testing success scenarios.
 
 More information in their docs: <https://stripe.com/docs/testing#cards>
+
+## Sendgrid
+
+Goto https://app.sendgrid.com/ sign up an account
+Update SENDGRID_API_KEY in .env by your key
 
 ## Dependencies
 
@@ -29,7 +35,4 @@ More information in their docs: <https://stripe.com/docs/testing#cards>
 * Stripe
 * Sendgrid
 
-## Sendgrid
 
-Goto https://app.sendgrid.com/ sign up an account
-Update SENDGRID_API_KEY in .env by your key
