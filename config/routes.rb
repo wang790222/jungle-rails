@@ -21,9 +21,9 @@ Rails.application.routes.draw do
     resources :products, :categories, except: [:edit, :update, :show]
   end
 
-  get    '/login',   to: 'sessions#new'
-  post   '/login',   to: 'sessions#create'
-  delete '/logout',  to: 'sessions#destroy'
+  get    '/login',    to: 'sessions#new'
+  post   '/login',    to: 'sessions#create'
+  delete '/logout',   to: 'sessions#destroy'
 
   get    '/signup',   to: 'users#new'
   post   '/signup',   to: 'users#create'

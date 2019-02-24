@@ -9,7 +9,7 @@ class ReviewsController < ApplicationController
     if @review.save
       puts "Review created"
     else
-      puts @review.errors.messages
+      flash[:error] = "Please rating. Thank you!"
     end
     redirect_to :back
   end
@@ -17,13 +17,14 @@ class ReviewsController < ApplicationController
   def get_user_id
     user_email = JSON.parse(cookies[:user_email])['email']
     @user = User.where(email: user_email)
-    @user[0]['id']
+    if @user.length > 0
+      return @user[0]['id']
+    else
+      return 0
+    end
   end
 
   def destroy
-    puts "--------- params ---------"
-    puts params
-    puts "--------- params ---------"
     Review.find(params[:review][:id]).destroy
     redirect_to :back
   end

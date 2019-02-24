@@ -7,7 +7,9 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find params[:id]
     @reviews  = Review.where(product_id: params[:id]).order(created_at: :desc)
-    @user_email = JSON.parse(cookies[:user_email])['email']
+    if cookies[:user_email]
+      @user_email = JSON.parse(cookies[:user_email])['email']
+    end
     @has_reviewed = is_already_reviewed?
     @star_count = [0, 0, 0, 0, 0]
     @star_total = 0
@@ -47,6 +49,10 @@ class ProductsController < ApplicationController
 
   def get_user_id
     @user = User.where(email: @user_email)
-    @user[0]['id']
+    if @user.length > 0
+      return @user[0]['id']
+    else
+      return 0
+    end
   end
 end

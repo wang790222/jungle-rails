@@ -35,7 +35,7 @@ class OrdersController < ApplicationController
     Stripe::Charge.create(
       source:      params[:stripeToken],
       amount:      cart_subtotal_cents,
-      description: "Yu-Ning's Jungle Order",
+      description: "Your Jungle Order",
       currency:    'cad'
     )
   end
@@ -67,7 +67,11 @@ class OrdersController < ApplicationController
   end
 
   def send_email_receipt(order_id)
-    user_email = JSON.parse(cookies[:user_email])['email']
+    puts "----- mail ------"
+    puts params[:stripeEmail]
+    user_email = (cookies[:user_email]) ? JSON.parse(cookies[:user_email])['email'] : params[:stripeEmail]
+    puts user_email
+    puts "----- mail ------"
     @order_result = get_order_detail(order_id)
     temp_total = 0
 
