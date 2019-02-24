@@ -132,27 +132,27 @@ cat3.products.create!({
   price: 2_483.75
 })
 
-puts "Creating User ..."
-## USERS
-include BCrypt
-password = Password.create("a")
-@user1 = User.new(first_name: "a", last_name: "b", password_digest: password, email: "wang790222@gmail.com")
-@user1.save
+# puts "Creating User ..."
+# ## USERS
+# include BCrypt
+# password = Password.create("a")
+# @user1 = User.new(first_name: "a", last_name: "b", password_digest: password, email: "wang790222@gmail.com")
+# @user1.save
 
-@user2 = User.new(first_name: "c", last_name: "d", password_digest: password, email: "abcde@gmail.com")
-@user2.save
+# @user2 = User.new(first_name: "c", last_name: "d", password_digest: password, email: "abcde@gmail.com")
+# @user2.save
 
-puts "Creating Review ..."
-## REVIEWS
-@review1 = Review.new(product_id: 1, user_id: 1, description: "Good!", rating: 5)
-@review1_1 = Review.new(product_id: 1, user_id: 2, description: "Hmmmm!", rating: 3)
+# puts "Creating Review ..."
+# ## REVIEWS
+# @review1 = Review.new(product_id: 1, user_id: 1, description: "Good!", rating: 5)
+# @review1_1 = Review.new(product_id: 1, user_id: 2, description: "Hmmmm!", rating: 3)
 
-@review2 = Review.new(product_id: 2, user_id: 1, description: "Soso!", rating: 4)
-@review3 = Review.new(product_id: 3, user_id: 1, description: "Bad!", rating: 3)
+# @review2 = Review.new(product_id: 2, user_id: 1, description: "Soso!", rating: 4)
+# @review3 = Review.new(product_id: 3, user_id: 1, description: "Bad!", rating: 3)
 
-@review1.save
-@review1_1.save
-@review2.save
-@review3.save
+# @review1.save
+# @review1_1.save
+# @review2.save
+# @review3.save
 
 puts "DONE!"
