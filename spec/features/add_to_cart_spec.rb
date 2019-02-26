@@ -15,7 +15,6 @@ RSpec.feature "Visitor navigates to cart page", type: :feature, js: true do
   scenario "They see all their products in the cart" do
     # ACT
     visit root_path
-    #click_button ' Add'
     within find('.products') do
       find(".fa-shopping-cart").click
     end
